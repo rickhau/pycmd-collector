@@ -43,6 +43,13 @@ Standalone mode:
 $ ./pycmd-logger linuxcmd.txt
 ```
 
+### Feature
+-----------
+TODO:
+> Supports PyWind32 to dump Windows System Event Log
+
+
+
 
 #### v0.0.1
 ~~~~~~
