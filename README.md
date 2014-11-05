@@ -1,11 +1,11 @@
-pycmd-collector
+pycmdCollector
 ===============
 
 pycmd-collector is a command line utility to dump all command line output to log files for further analysis.
 It requires a command list receipe to feed in this tool.
 
 ```bash
-Usage: pycmd-collector <command recipe>
+Usage: pycmdCollector <command recipe>
 
 <command list recipe format>: Use ',' to separate the {command} and {logfile}
 command1, logname1
@@ -21,7 +21,7 @@ myapp -A1 -t -s -a0, myapp0.log
 
 
 ```bash
-$ python pycmd-collector.py linuxcmd.txt
+$ python pycmdCollector.py linuxcmd.txt
 COMMAND LINE LOG COLLECTION OOL
 Author: Rick Lin / VERSION: 0.0.1
 ----------------------------------
@@ -40,7 +40,7 @@ Ex: `2014-11-05-130344_cmdline_logs.zip`
 Standalone mode: (Linux only)
 
 ```bash
-$ ./pycmd-logger linuxcmd.txt
+$ ./pycmdLogger linuxcmd.txt
 ```
 
 ### Feature
