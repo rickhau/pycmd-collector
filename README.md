@@ -14,8 +14,11 @@ command2, logname2
 ```
 
 Ex:
+
 ls -l, ls.log
+
 myapp -A1 -t -s -a0, myapp0.log
+
 
 ```bash
 $ python pycmd-collector.py linuxcmd.txt
@@ -30,7 +33,7 @@ $
 ```
 
 It will generate a zip with all above command list.
-Ex: 2014-11-05-130344_cmdline_logs.zip
+Ex: `2014-11-05-130344_cmdline_logs.zip`
 
 **OR**
 
@@ -40,9 +43,10 @@ Standalone mode:
 $ ./pycmd-logger linuxcmd.txt
 ```
 
-v0.0.1
+
+#### v0.0.1
 ~~~~~~
-1. Supports Windows and Linux log dump
-2. Tests on Windows 7 and RHEL6.3 x86-64
-3. Package.sh is a shell script to bundle the python script into one standalone file
+ 1. Supports Windows and Linux log dump
+ 2. Tests on Windows 7 and RHEL6.3 x86-64
+ 3. Package.sh is a shell script to bundle the python script into one standalone file
 
