@@ -4,16 +4,16 @@
 # Description:
 #   This script is to bundle the python scripts into one standalone executable file
 
-if [[ -e pycmd-logger ]]; then
-    rm -f pycmd-logger
+if [[ -e pycmdLogger ]]; then
+    rm -f pycmdLogger
 fi
 
 mkdir pycmd
-cp pycmd-collector.py pycmd/__main__.py
+cp pycmdCollector.py pycmd/__main__.py
 cd pycmd
 zip -r ../pycmd2.zip *.*
 cd ..
-echo '#!/usr/bin/env python' | cat - pycmd2.zip > pycmd-logger
-chmod +x pycmd-logger
+echo '#!/usr/bin/env python' | cat - pycmd2.zip > pycmdLogger
+chmod +x pycmdLogger
 rm -rf pycmd
 rm -f pycmd2.zip
