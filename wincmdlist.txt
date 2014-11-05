@@ -1,0 +1,4 @@
+ help, help.log
+dir /w , dir.log
+ megacli --help, megacli.log
+megacli -adapfwflash -a0, adapfwflash.log

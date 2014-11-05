@@ -1,0 +1,4 @@
+ dmesg, dmesg.log
+ time , time.log
+ls -l , ls.log
+
