@@ -37,7 +37,7 @@ Ex: `2014-11-05-130344_cmdline_logs.zip`
 
 **OR**
 
-Standalone mode:
+Standalone mode: (Linux only)
 
 ```bash
 $ ./pycmd-logger linuxcmd.txt
@@ -49,11 +49,16 @@ TODO:
 > Supports PyWind32 to dump Windows System Event Log
 
 
+### Convert Python to binary executable file on windows and linux
+-------
+- Windows: py2exe
+- Linux: Freeze
+Reference Link: http://docs.python-guide.org/en/latest/shipping/freezing/
 
 
 #### v0.0.1
 ~~~~~~
  1. Supports Windows and Linux log dump
  2. Tests on Windows 7 and RHEL6.3 x86-64
- 3. Package.sh is a shell script to bundle the python script into one standalone file
+ 3. Package.sh is a shell script to bundle the python script into one standalone file(For Linux only)
 
