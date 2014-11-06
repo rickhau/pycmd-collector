@@ -6,6 +6,7 @@
 # on Windows and Linux platforms.
 #
 # Change History
+# v0.0.2 Add PyWin32 and Windows Event Log dump
 # v0.0.1 Initial Release
 
 # import modules
@@ -18,13 +19,11 @@ import time
 import shutil
 import csv
 
-version = '0.0.1'
+version = '0.0.2'
 author = 'Rick Lin'
 platform = sys.platform
-if 'cygwin' == platform:
+if 'cygwin' == platform or 'win32' == platform:
 	os_name = 'Win'
-elif 'win32' == platform:
-	os_name = 'Dos'
 else:
 	os_name = 'Linux'
 
@@ -32,9 +31,11 @@ logging_level = 'INFO'
 LOGNAME       = 'logcollect.log'
 LOGDIRNAME    = 'cmdoutput'
 ZIPFILENAME   = 'cmdline_logs'
+ZIPNAME       = ''
 TIMEFORMAT    = '%Y-%m-%d-%H%M%S_'
 LOGPATH       = os.path.join(os.getcwd(), LOGDIRNAME)
 LOGLIST       = []
+
 
 
 def createLogDir(DIR=LOGDIRNAME):
@@ -49,6 +50,7 @@ def createLogDir(DIR=LOGDIRNAME):
   return
 
 def zipLogDir(path=LOGPATH):
+	global ZIPNAME
 	now = time.localtime(time.time())
 	date = time.strftime(TIMEFORMAT, now)
 	ZIPNAME = date + ZIPFILENAME + '.zip'
@@ -58,6 +60,7 @@ def zipLogDir(path=LOGPATH):
 			if file.endswith('log'):
 				zipf.write(file)
 	zipf.close()
+
 	#curdir = os.getcwd()
 	os.chdir('..')
 	updir = os.getcwd()
@@ -101,7 +104,7 @@ def rmLogs(path=LOGPATH):
 	if os.path.basename(os.getcwd()) == LOGDIRNAME:
 		parentdir = os.path.dirname(os.getcwd())
 		os.chdir(parentdir)
-	os.rmdir(os.path.join(os.getcwd(), LOGDIRNAME))
+	shutil.rmtree(os.path.join(os.getcwd(), LOGDIRNAME))
 	return
 
 def openCommand(cmdfile):
@@ -120,6 +123,7 @@ def openCommand(cmdfile):
 	  logging.info("Error: {}".format(e))
 	  rmLogs(os.path.dirname(os.getcwd()))
 	  sys.exit()
+
 
 def main():
 	'''function document
@@ -149,11 +153,33 @@ def main():
 	else:
 		logging.info("Input command file: [{}]".format(sys.argv[1]))
 		cmdlistfile = os.path.abspath(sys.argv[1])
+	
+	### Dump Windows Event Log ###
+	if os_name == 'Win':
+		try:
+			import pyWinEvt
+		except ImportError as e:
+			logging.info("ERROR: {}".format(e))
+			logging.info("Unable to enable Windows Event Log Dump")
+			logging.info("{} exit...".format(sys.argv[0]))
+			raise SystemExit
+	### Dump Windows Event Log ###
 
 	createLogDir(LOGDIRNAME)
+
+	### Dump Windows Event Log ###
+	if os_name == 'Win':
+		server = 'localhost'
+		logTypes = ["System", "Application", "Security"]
+		logging.info("Dumping Windows System Event Log...")
+		pyWinEvt.getAllEvents(server, logTypes, LOGPATH)
+	### Dump Windows Event Log ###
+
 	openCommand(cmdlistfile)
 	zipLogDir(LOGPATH)
 	rmLogs(LOGPATH)
+
+	logging.info("\nLog dump arcive is located at [{}]".format(os.path.abspath(ZIPNAME)))
 
 	if 'DEBUG' == logging_level:
 		f.close()
