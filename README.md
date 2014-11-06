@@ -46,7 +46,10 @@ $ ./pycmdLogger linuxcmd.txt
 ### Feature
 -----------
 TODO:
-> Supports PyWind32 to dump Windows System Event Log
+>- Separate to different modules as a library
+>- GUI interface
+>- Viewer
+>- Parser
 
 
 ### Convert Python to binary executable file on windows and linux
@@ -55,6 +58,10 @@ TODO:
 - Linux: Freeze
 Reference Link: http://docs.python-guide.org/en/latest/shipping/freezing/
 
+
+#### v0.0.2
+~~~~~~
+1. Supports PyWin32 to dump Windows System Event Log
 
 #### v0.0.1
 ~~~~~~
