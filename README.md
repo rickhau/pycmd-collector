@@ -59,12 +59,12 @@ TODO:
 Reference Link: http://docs.python-guide.org/en/latest/shipping/freezing/
 
 
-#### v0.0.2
-~~~~~~
-1. Supports PyWin32 to dump Windows System Event Log
+####v0.0.2
 
-#### v0.0.1
-~~~~~~
+ 1. Supports PyWin32 to dump Windows System Event Log
+
+####v0.0.1
+
  1. Supports Windows and Linux log dump
  2. Tests on Windows 7 and RHEL6.3 x86-64
  3. Package.sh is a shell script to bundle the python script into one standalone file(For Linux only)
