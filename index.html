@@ -1,1 +1,89 @@
-My GitHub Page
+<h1 id="pycmdcollector">pycmdCollector</h1>
+
+<p>pycmd-collector is a command line utility to dump all command line output to log files for further analysis. <br>
+It requires a command list receipe using ‘csv’ format to run this tool.</p>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">Usage: pycmdCollector &lt;command recipe&gt;
+
+&lt;command list recipe format&gt;: Use <span class="hljs-string">','</span> to separate the {command} and {logfile}
+command1, logname1
+command2, logname2
+...,...</code></pre>
+
+<p>Ex:</p>
+
+<p>ls -l, ls.log</p>
+
+<p>myapp -A1 -t -s -a0, myapp0.log</p>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ python pycmdCollector.py linuxcmd.csv
+COMMAND LINE LOG COLLECTION OOL
+Author: Rick L<span class="hljs-keyword">in</span> / VERSION: <span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>
+----------------------------------
+Input command file: [linuxcmd.txt]
+Dumping (dmesg) to dmesg.log
+Dumping (time) to time.log
+Dumping (ls <span class="hljs-operator">-l</span>) to ls.log
+$</code></pre>
+
+<p>It will generate a zip with all above command list. <br>
+Ex: <code>2014-11-05-130344_cmdline_logs.zip</code></p>
+
+<p><strong>OR</strong></p>
+
+<p>Standalone mode: (Linux only)</p>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs ">$ ./pycmdLogger linuxcmd.txt</code></pre>
+
+
+
+<h3 id="feature">Feature</h3>
+
+<hr>
+
+<p>TODO:</p>
+
+<blockquote>
+  <ul>
+  <li>Separate to different modules as a library</li>
+  <li>GUI interface</li>
+  <li>Viewer</li>
+  <li>Parser</li>
+  </ul>
+</blockquote>
+
+
+
+<h3 id="convert-python-to-binary-executable-file-on-windows-and-linux">Convert Python to binary executable file on windows and linux</h3>
+
+<hr>
+
+<ul>
+<li>Windows: py2exe</li>
+<li>Linux: Freeze <br>
+Reference Link: <a href="http://docs.python-guide.org/en/latest/shipping/freezing/">http://docs.python-guide.org/en/latest/shipping/freezing/</a></li>
+</ul>
+
+
+
+<h4 id="v002">v0.0.2</h4>
+
+<ol>
+<li>Supports PyWin32 to dump Windows System Event Log</li>
+</ol>
+
+
+
+<h4 id="v001">v0.0.1</h4>
+
+<ol>
+<li>Supports Windows and Linux log dump</li>
+<li>Tests on Windows 7 and RHEL6.3 x86-64</li>
+<li>Package.sh is a shell script to bundle the python script into one standalone file(For Linux only)</li>
+</ol>
