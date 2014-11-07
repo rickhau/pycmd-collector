@@ -142,7 +142,7 @@ def main():
 	logging.info("Author: {0} / VERSION: {1} ".format(author, version))
 	logging.info("----------------------------------")
 
-	if len(sys.argv) < 2:
+	if len(sys.argv) != 2:
 		logging.info("<command list file> is required")
 		logging.info("Usage: {} <command list file>".format(sys.argv[0]))
 		logging.info("command list file format: ")
