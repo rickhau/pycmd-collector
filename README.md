@@ -1,7 +1,7 @@
 pycmdCollector
 ===============
 
-pycmd-collector is a command line utility to dump all command line output to log files for further analysis.
+pycmdCollector is a command line utility to dump all command line output to log files for further analysis.
 It requires a command list receipe using 'csv' format to run this tool.
 
 ```bash
@@ -47,9 +47,10 @@ $ ./pycmdLogger linuxcmd.txt
 -----------
 TODO:
 >- Separate to different modules as a library
->- GUI interface
->- Viewer
+>- Convert to Standalone executable file on both Windows and Linux
 >- Parser
+>- Viewer
+>- GUI interface
 
 
 ### Convert Python to binary executable file on windows and linux
