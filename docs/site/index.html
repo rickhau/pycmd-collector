@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+        <title>pycmdCollector</title>
+
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body class="homepage">
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">pycmdCollector</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+
+            
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#pycmdcollector">pycmdCollector</a></li>
+        
+            <li><a href="#feature">Feature</a></li>
+        
+            <li><a href="#release-history">Release History</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="pycmdcollector">pycmdCollector</h1>
+<p>pycmdCollector is a command line utility to dump all command line output to log files for further analysis.
+It requires a command list receipe using 'csv' format to run this tool.</p>
+<pre><code class="bash">Usage: pycmdCollector &lt;command recipe&gt;
+
+&lt;command list recipe format&gt;: Use ',' to separate the {command} and {logfile}
+command1, logname1
+command2, logname2
+...,...
+</code></pre>
+
+<p>Ex:</p>
+<p>ls -l, ls.log</p>
+<p>myapp -A1 -t -s -a0, myapp0.log</p>
+<pre><code class="bash">$ python pycmdCollector.py linuxcmd.csv
+COMMAND LINE LOG COLLECTION OOL
+Author: Rick Lin / VERSION: 0.0.1
+----------------------------------
+Input command file: [linuxcmd.txt]
+Dumping (dmesg) to dmesg.log
+Dumping (time) to time.log
+Dumping (ls -l) to ls.log
+$
+</code></pre>
+
+<p>It will generate a zip with all above command list.
+Ex: <code>2014-11-05-130344_cmdline_logs.zip</code></p>
+<p><strong>OR</strong></p>
+<p>Standalone mode: (Linux only)</p>
+<pre><code class="bash">$ ./pycmdLogger linuxcmd.txt
+</code></pre>
+
+<h3 id="feature">Feature</h3>
+<hr />
+<p>TODO:</p>
+<blockquote>
+<ul>
+<li>Separate to different modules as a library</li>
+<li>Convert to Standalone executable file on both Windows and Linux</li>
+<li>Parser</li>
+<li>Viewer</li>
+<li>GUI interface</li>
+<li>Convert Python to binary executable file on windows and linux
+    &gt;- Windows: py2exe
+    &gt;- Linux: Freeze
+    Reference Link: http://docs.python-guide.org/en/latest/shipping/freezing/</li>
+</ul>
+</blockquote>
+<h3 id="release-history">Release History</h3>
+<hr />
+<h4 id="v002">v0.0.2</h4>
+<ol>
+<li>Supports PyWin32 to dump Windows System Event Log</li>
+</ol>
+<h4 id="v001">v0.0.1</h4>
+<ol>
+<li>Supports Windows and Linux log dump</li>
+<li>Tests on Windows 7 and RHEL6.3 x86-64</li>
+<li>Package.sh is a shell script to bundle the python script into one standalone file(For Linux only)</li>
+</ol>
+</div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/highlight.pack.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
