@@ -142,6 +142,8 @@ def init(mode=logging_level, logname=LOGNAME):
     """ This method is to set up the log dump configuration
         Default is to write the message to sys.stdout and message only format
         If you set the level to "DEBUG", it will write to the log file(logname) in detail message format
+        mode: "INFO" or "DEBUG"
+        logname: default="logcollect.log"
     """
     global logging_level
     global LOGNAME
