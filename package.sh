@@ -10,6 +10,7 @@ fi
 
 mkdir pycmd
 cp pycmdCollector.py pycmd/__main__.py
+cp pyWinEvt.py pycmd/
 cd pycmd
 zip -r ../pycmd2.zip *.*
 cd ..

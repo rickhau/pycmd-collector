@@ -19,6 +19,7 @@ import zipfile
 import time
 import shutil
 import csv
+import logging
 
 version = '0.0.3'
 author = 'Rick Lin'
@@ -36,6 +37,8 @@ ZIPNAME       = ''
 TIMEFORMAT    = '%Y-%m-%d-%H%M%S_'
 LOGPATH       = os.path.join(os.getcwd(), LOGDIRNAME)
 LOGLIST       = []
+log           = logging.info
+logfd         = sys.stdout
 
 
 def createLogDir():
@@ -103,14 +106,14 @@ def runCommands(cmd, outfile):
     (status, output) = getstatusoutput(cmd)
     if status == 0:
         f = open(outfile, "w")
-        logging.info("Dumping (%s) to %s " % (cmd, outfile))
+        log("Dumping (%s) to %s " % (cmd, outfile))
         f.write(cmd + "\n")
         f.write("----------\n")
         f.write(output)
         LOGLIST.append(outfile)  # remember how many files are dumpped
         f.close()
     else:
-        logging.info("[%s] command error!" % cmd)
+        log("[%s] command error!" % cmd)
         logging.debug("Exit runCommands()")
     return
 
@@ -127,52 +130,74 @@ def openCommand(cmdfile):
                     continue
                 runCommands(line[0].strip(), line[1].strip()) # strip() is to remove spaces
     except IndexError as e:
-        logging.info("[{}]: Incorrect csv format for parsing!, {}".format(os.path.basename(cmdfile), e))
+        log("[{}]: Incorrect csv format for parsing!, {}".format(os.path.basename(cmdfile), e))
         shutil.rmtree(os.path.dirname(os.getcwd()))
         sys.exit()
     except(csv.Error, IOError, ValueError) as e:
-        logging.info("Error: {}".format(e))
+        log("Error: {}".format(e))
         shutil.rmtree(os.path.dirname(os.getcwd()))
         sys.exit()
+
+def init(mode=logging_level, logname=LOGNAME):
+    """ This method is to set up the log dump configuration
+        Default is to write the message to sys.stdout and message only format
+        If you set the level to "DEBUG", it will write to the log file(logname) in detail message format
+    """
+    global logging_level
+    global LOGNAME
+    global logfd
+
+    if mode == 'DEBUG':
+        logging_level = mode
+        LOGNAME = logname
+        fmt = "%(module)s.%(funcName)s |%(asctime)-15s|(PID: %(process)d)|%(levelname)s|%(message)s"
+        if os.path.exists(logname):
+            os.remove(logname)
+        logfd = open(logname, "w")
+    else:
+        logging_level = mode
+        fmt = "%(message)s"
+        logfd = sys.stdout
+    logging.basicConfig(level=mode, stream=logfd, format=fmt)
 
 
 def main():
     '''This main fuction reads the command recipe, runs it and archives the log dump into zip file
     '''
+    global log
+    global logfd    
 
-    formatter = "%(module)s.%(funcName)s |%(asctime)-15s|(PID: %(process)d)|%(levelname)s|%(message)s"
+    init() # Initialize the logging setup configuration
 
-    if 'DEBUG' == logging_level:
-        f = open(LOGNAME, "w")
-        logging.basicConfig(level=logging.DEBUG, stream=f, format=formatter)
-    else:
-        #logging.basicConfig(level=logging.INFO, stream=sys.stdout, format="|%(asctime)-15s|%(message)s")
-        logging.basicConfig(level=logging.INFO, stream=sys.stdout, format="%(message)s")
-
-    logging.info("COMMAND LINE LOG COLLECTION TOOL")
-    logging.info("Author: {0} / VERSION: {1} ".format(author, version))
-    logging.info("----------------------------------")
+    print "COMMAND LINE LOG COLLECTION TOOL"
+    print "Author: {0} / VERSION: {1} ".format(author, version)
+    print "----------------------------------"
 
     if len(sys.argv) != 2:
-        logging.info("<command list file> is required")
-        logging.info("Usage: {} <command list file>".format(sys.argv[0]))
-        logging.info("command list file format: ")
-        logging.info("   command1, output1.log")
-        logging.info("   command2, output2.log")
-        logging.info("   ..., ...")
+        print "<command list file> is required"
+        print "Usage: {} <command list file>".format(sys.argv[0])
+        print "command list file format: "
+        print "   command1, output1.log"
+        print "   command2, output2.log"
+        print "   ..., ..."
         return
     else:
-        logging.info("Input command file: [{}]".format(sys.argv[1]))
+        print "Input command file: [{}]".format(sys.argv[1])
         cmdlistfile = os.path.abspath(sys.argv[1])
+
+    # Redirect the log output from logging.info to logging.debug
+    if logging_level == "DEBUG":
+        log = logging.debug
+        print "VERBOSE is set to ON"
     
     ### Dump Windows Event Log ###
     if os_name == 'Win':
         try:
             import pyWinEvt
         except ImportError as e:
-            logging.info("ERROR: {}".format(e))
-            logging.info("Unable to enable Windows Event Log Dump")
-            logging.info("{} exit...".format(sys.argv[0]))
+            log("ERROR: {}".format(e))
+            log("Unable to enable Windows Event Log Dump")
+            log("{} exit...".format(sys.argv[0]))
             raise SystemExit
     ### Dump Windows Event Log ###
 
@@ -182,17 +207,17 @@ def main():
     if os_name == 'Win':
         server = 'localhost'
         logTypes = ["System", "Application", "Security"]
-        logging.info("Dumping Windows System Event Log...")
+        log("Dumping Windows System Event Log...")
         pyWinEvt.getAllEvents(server, logTypes, LOGPATH)
     ### Dump Windows Event Log ###
 
     openCommand(cmdlistfile)
     zipLogDir()
 
-    logging.info("\nLog dump arcive is located at [{}]".format(os.path.abspath(ZIPNAME)))
+    log("\nLog dump arcive is located at [{}]".format(os.path.abspath(ZIPNAME)))
 
     if 'DEBUG' == logging_level:
-        f.close()
+        logfd.close()
 
 if __name__ == "__main__":
     main()
