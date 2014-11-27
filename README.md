@@ -46,7 +46,6 @@ $ ./pycmdLogger linuxcmd.txt
 ### Feature
 -----------
 TODO:
->- Separate to different modules as a library
 >- Convert to Standalone executable file on both Windows and Linux
 >- Parser
 >- Viewer
