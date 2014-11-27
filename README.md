@@ -69,8 +69,7 @@ Reference Link: http://docs.python-guide.org/en/latest/shipping/freezing/
  2. Tests on Windows 7 and RHEL6.3 x86-64
  3. Package.sh is a shell script to bundle the python script into one standalone file(For Linux only)
 
-document link:
-
-[github.io](http://rickhau.github.io/pycmdCollector)
-
-[readthedocs](http://pycmdcollector.readthedocs.org)
+### Document links
+--------
+- [github.io](http://rickhau.github.io/pycmdCollector)
+- [readthedocs](http://pycmdcollector.readthedocs.org)
