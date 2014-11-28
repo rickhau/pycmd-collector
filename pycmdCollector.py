@@ -123,7 +123,7 @@ def openCommand(cmdfile):
     """
     
     try:
-        with open(cmdfile, 'r') as f:
+        with open(cmdfile, 'rb') as f:
             lines = csv.reader(f)
             for line in lines:
                 if line == []:
