@@ -42,8 +42,9 @@ logfd         = sys.stdout
 
 
 def createLogDir():
-    """This creates a log directory called 'cmdoutput' for log dump.
-       The directory will be deleted after log archive."""
+    """ This creates a log directory called 'cmdoutput' for log dump.
+        The directory will be deleted after log archive.
+    """
 
     global LOGPATH
     global LOGDIRNAME
@@ -59,7 +60,8 @@ def createLogDir():
     return
 
 def zipLogDir():
-    """This creates a zip to archive all logs in 'cmdoutput' directory"""
+    """ This creates a zip to archive all logs in 'cmdoutput' directory
+    """
 
     global ZIPNAME
     global TIMEFORMAT
@@ -84,7 +86,7 @@ def zipLogDir():
 
 def getstatusoutput(cmd):
     """ This capture the output and status of the command execution.
-        cmd: individual command
+        @cmd: individual command
         Return (status, output) of executing cmd in a shell.
     """
 
@@ -97,8 +99,8 @@ def getstatusoutput(cmd):
 
 def runCommands(cmd, outfile):
     """ This executes commands and writes the command output to file, which is to do the log dump
-        cmd: individual command
-        outfile: the filename of log dump
+        @cmd: individual command
+        @outfile: the filename of log dump
     """
     
     global LOGLIST
@@ -119,9 +121,8 @@ def runCommands(cmd, outfile):
 
 def openCommand(cmdfile):
     """ This parses the command recipe and run it line by line
-        cmdfile: command receipe
+        @cmdfile: command receipe
     """
-    
     try:
         with open(cmdfile, 'rb') as f:
             lines = csv.reader(f)
@@ -142,8 +143,8 @@ def init(mode=logging_level, logname=LOGNAME):
     """ This method is to set up the log dump configuration
         Default is to write the message to sys.stdout and message only format
         If you set the level to "DEBUG", it will write to the log file(logname) in detail message format
-        mode: "INFO" or "DEBUG"
-        logname: default="logcollect.log"
+        @mode: "INFO" or "DEBUG"
+        @logname: default="logcollect.log"
     """
     global logging_level
     global LOGNAME
